@@ -1,0 +1,57 @@
+﻿body {
+    background-color: #899499;
+}
+
+#title{
+    text-align: center;
+
+}
+
+#leftBox {
+    width: 500px;
+    border-top-style: solid;
+    padding-top: 100px;
+    padding-bottom: 200px;
+    border-top-width: 10px;
+    border-right-style: solid;
+    border-right-width: 10px;
+    border-left-width: 10px;
+    border-left-style: solid;
+    border-bottom-width: 10px;
+    border-bottom-style: solid;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-top: 0px;
+    margin-left: 10px; 
+    height: 300px;
+    margin-left: 150px;
+    margin-right: 10px;
+    float: left;
+}
+
+#rightBox {
+
+    width: 500px;
+    border-top-style: solid;
+    padding-top: 100px;
+    padding-bottom: 200px;
+    border-top-width: 10px;
+    border-right-style: solid;
+    border-right-width: 10px;
+    border-left-width: 10px;
+    border-left-style: solid;
+    border-bottom-width: 10px;
+    border-bottom-style: solid;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-top: 0px;
+    height: 300px;
+    float: right;
+    margin-right: 150px;
+    margin-left: 10px;
+}
+
+h2{
+    text-align: center;
+}
+
