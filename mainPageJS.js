@@ -11,7 +11,7 @@ function openForm() {
 //The closeForm function will close the form and hide all of its contents 
 function closeForm() {
 
-    document.getElementById("createPlaylist").style.display = "none";
+    document.getElementById("createPlaylist").style.display = "none"; //Closes the create playist
 }
 
 
