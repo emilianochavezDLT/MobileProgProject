@@ -7,24 +7,34 @@
     <link rel="stylesheet" href="landingPageSheet.css">
 </head>
 
-<body>
+    <body>
 
-    <h1 id="title"> Workout Builder </h1>
+        <!-- These are the two boxes that the user can click on
+            to go to the next page -->
 
-    <!-- These are the two boxes that the user can click on
-        to go to the next page -->
-    <div id="leftBox">
-        <h2>Create a Workout</h2>
+        <ul>
+            <li><a class="active" href="#home">Home</a></li>
+            <li><a href="#workout-playlists">My Playslists</a></li>
+            <li><a href="#create">Create</a></li>
+            <li><a href="#explore">Explore</a></li>
+        </ul>
 
-    </div>
+        <div class="header">
+        <h1>Workout Builder</h1>
+        </div>
 
-    <div id="rightBox">
-        <h2> View Playlists </h2>
+        <!-- These are the two boxes that the user can click on
+            to go to the next page -->
+        <div class="container">
+            <a href="#create" class="card">
+            <img src="CreateWorkout.jpg" alt="Create a Workout">
+            <div class="card-text">Create a Workout</div>
+            </a>
+            <a href="#workout-playlists" class="card">
+            <img src="ViewPlaylists.jpg" alt="View Playlists">
+            <div class="card-text">View Playlists</div>
+            </a>
+        </div>
 
-    </div>
-    <!--End boxes-->
-
-
-
-</body>
+    </body>
 </html>
