@@ -1,0 +1,17 @@
+﻿body {
+    background-color: #899499;
+}
+
+#title {
+    text-align: center;
+}
+
+#createPlaylist {
+    width: 200px;
+    height: 200px;
+}
+
+.descriptionBox {
+    width: 270px;
+    height: 115px;
+}

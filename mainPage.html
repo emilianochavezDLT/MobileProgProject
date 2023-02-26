@@ -5,14 +5,58 @@
 
     <meta charset="utf-8" />
     <title>Main Page</title>
-
+    <link rel="stylesheet" href="mainPageSheet.css">
+    <script src="mainPageJS.js"></script>
 </head>
 
 
 
 <body>
 
-    <p>Hello Everyone! Here</p>
+    <h1 id="title"> Workout Builder</h1>
+    
+    <!--This is the nav element for out workout app-->
+    <nav></nav>
+    <!-- *********************************************-->
+
+
+    <!--There is div element for our side bar.
+    The side bar essentially our view playists "lists""-->
+    <div class="viewPlayists">
+
+        
+        
+    </div>
+
+
+    <!-- Manual Workout Playist Building -->
+    <!-- Users creating a playist with a picture, name and short description-->
+
+    <!-- Button to open create a playist. We can change this later. -->
+    <button class="openForm" onclick="openForm()"> Create A Playlist </button>
+
+
+    <div class="formPopup" id="createPlaylist" style="display: none">
+        <!-- This form will essntially pop up once the user clicks a big button "Create Playists"-->
+        <form id="playlistForm">
+            <h1>Playlist</h1>
+
+            <!--Playlist Inputs-->
+            <label><b>Name of Playlist</b></label>
+            <input type="text" placeholder="Playlist Name" name="Playlist"/>
+
+            <!-- The text area is an Html element that allows the user input any type of text-->
+            <label><b>Description</b></label>
+            <textarea name="Description" placeholder="Enter your workout here:" class="descriptionBox"></textarea>
+
+            <!--Buttons to submit or cancel the form-->
+            <button type="submit" class="btn">Create Playlist</button>
+            <button type="button" class="btn_cancel" onclick="closeForm()">Cancel</button>
+
+        </form>
+
+    </div>
+
 
 
 </body>
