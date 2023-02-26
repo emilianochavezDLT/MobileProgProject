@@ -82,3 +82,99 @@ font-size: 1.5rem;
 text-align: center;
 text-transform: uppercase;
 }
+
+
+
+.greenBtn {
+    border: none;
+    color: black;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-family: 'Copperplate Gothic';
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition-duration: 0.8s;
+    background-color: #C0C0C0;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
+
+.greenBtn:hover{
+
+    background-color: #2ecc71;
+
+}
+
+.cancelBtn {
+    border: none;
+    color: black;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-family: 'Copperplate Gothic';
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition-duration: 0.5s;
+    background-color: #C0C0C0;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
+
+    .cancelBtn:hover {
+        background-color: red;
+    }
+
+
+
+input[type=text]{
+
+    width: 25%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing:border-box;
+    border-radius: 25px;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+
+
+}
+
+input[type=text]:focus{
+
+    border: 3px solid #555;
+
+}
+
+
+textarea {
+    width: 460px;
+    height: 270px;
+    border-radius: 25px;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+textarea:focus{
+
+    border: 3px solid #555;
+}
+
+.formPopup{
+
+    text-align:center;
+    justify-content: center;
+    align-items: center;
+
+
+}

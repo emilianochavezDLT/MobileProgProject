@@ -11,7 +11,7 @@
     <body>
 
         <ul>
-            <li><a class="active" href="#home">Home</a></li>
+            <li><a class="active" href="mainPage.html">Home</a></li>
             <li><a href="#workout-playlists">My Playslists</a></li>
             <li><a href="#create">Create</a></li>
             <li><a href="#explore">Explore</a></li>
@@ -26,12 +26,10 @@
           </div>
           
 
-    <h1 id="title"> Workout Builder</h1>
-    
-    <!--This is the nav element for out workout app-->
-    <nav></nav>
-    <!-- *********************************************-->
 
+    <!-- The beginning of our form-->
+    <h1 id="create" style="text-align: center"> Workout Builder</h1>
+    
 
     <!--There is div element for our side bar.
     The side bar essentially our view playists "lists""-->
@@ -46,7 +44,7 @@
     <!-- Users creating a playist with a picture, name and short description-->
 
     <!-- Button to open create a playist. We can change this later. -->
-    <button class="openForm" onclick="openForm()"> Create A Playlist </button>
+    <button class="greenBtn" onclick="openForm()" style="width:25%; text-align:center"> Create A Playlist </button>
 
 
     <div class="formPopup" id="createPlaylist" style="display: none">
@@ -56,15 +54,17 @@
 
             <!--Playlist Inputs-->
             <label><b>Name of Playlist</b></label>
+            <br />
             <input type="text" placeholder="Playlist Name" name="Playlist"/>
-
+            <br />
             <!-- The text area is an Html element that allows the user input any type of text-->
             <label><b>Description</b></label>
+            <br />
             <textarea name="Description" placeholder="Enter your workout here:" class="descriptionBox"></textarea>
-
+            <br />
             <!--Buttons to submit or cancel the form-->
-            <button type="submit" class="btn">Create Playlist</button>
-            <button type="button" class="btn_cancel" onclick="closeForm()">Cancel</button>
+            <button type="submit" class="greenBtn">Create Playlist</button>
+            <button type="button" class="cancelBtn" onclick="closeForm()">Cancel</button>
 
         </form>
 
