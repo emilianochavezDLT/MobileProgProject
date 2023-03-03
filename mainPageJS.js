@@ -1,17 +1,22 @@
 // Main Page Javascript
 
 
+//The closeForm function will close the form and hide all of its contents 
+function closeVisibilty(id) {
 
-//The open form function will essentially unhide the contents of our form
-function openForm() {
+    if(document.getElementById(id).style.display === "block"){
 
-    document.getElementById("createPlaylist").style.display = "block"; //Creates a popup effect
+        document.getElementById(id).style.display = "none"; //Unhides the contents of the id
+        
+    }
+    
+
 }
 
-//The closeForm function will close the form and hide all of its contents 
-function closeForm() {
+//The open function will take an any id as a parameter and unhide the contents of that id
+function openVisibilty(id) {
 
-    document.getElementById("createPlaylist").style.display = "none"; //Closes the create playist
+    document.getElementById(id).style.display = "block"; //Unhides the contents of the id
 }
 
 
