@@ -9,14 +9,21 @@
 
     <body>
 
-        <!-- These are the two boxes that the user can click on
-            to go to the next page -->
-
         <ul>
             <li><a class="active" href="mainPage.html">Home</a></li>
-            <li><a href="#workout-playlists">My Playslists</a></li>
-            <li><a href="#create">Create</a></li>
-            <li><a href="#explore">Explore</a></li>
+
+            <!--Once the user clicks on "My Playlists" the side bar will open-->
+            <li><a onclick="openVisibilty('sideBar')">My Playslists</a></li>
+                <div id="sideBar" class="sideBar" style="display: none">
+                <!-- The side bar will have a title-->
+                    <h3>Playlists</h3>
+
+            
+            
+                </div>
+
+            <li><a href="createPage.html">Create</a></li>
+            <li><a href="landingPage.html">Explore</a></li>
         </ul>
 
         <div class="header">

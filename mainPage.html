@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -18,62 +18,21 @@
                 <div id="sideBar" class="sideBar" style="display: none">
                 <!-- The side bar will have a title-->
                     <h3>Playlists</h3>
-
-            
-            
                 </div>
 
-            <li><a href="#create">Create</a></li>
-            <li><a href="#explore">Explore</a></li>
+            <li><a href="createPage.html">Create</a></li>
+            <li><a href="landingPage.html">Explore</a></li>
         </ul>
 
         <header class="header">
-            <h1>Welcome to Workout Builder</h1>
-          </header>
-          
-          <div class="banner">
-            <img src="Gym.jpg" alt="Banner Image">
-          </div>
-          
-
-
-    <!-- The beginning of our form-->
-    <h1 id="create" style="text-align: center"> Workout Builder</h1>
-
-
-    <!-- Manual Workout Playist Building -->
-    <!-- Users creating a playist with a picture, name and short description-->
-
-    <!-- Button to open create a playist. We can change this later. -->
-    <div style="margin: auto;text-align: center;">
-        <button class="greenBtn" onclick="openVisibilty('createPlaylist')" style="width:25%; text-align:center"> Create A Playlist </button>
-    </div>
-
-
-    <div class="formPopup" id="createPlaylist" style="display: none">
-        <!-- This form will essntially pop up once the user clicks a big button "Create Playists"-->
-        <form id="playlistForm">
-            <h1></h1>Playlist</h1>
-
-            <!--Playlist Inputs-->
-            <label><b>Name of Playlist</b></label>
-            <br />
-            <input type="text" placeholder="Playlist Name" name="Playlist"/>
-            <br />
-            <!-- The text area is an Html element that allows the user input any type of text-->
-            <label><b>Description</b></label>
-            <br />
-            <textarea name="Description" placeholder=" Enter your workout here:" class="descriptionBox"></textarea>
-            <br />
-            <!--Buttons to submit or cancel the form-->
-            <button type="submit" class="greenBtn">Create Playlist</button>
-            <button type="button" class="cancelBtn" onclick="closeVisibilty('createPlaylist')">Cancel</button>
-
-        </form>
-
-    </div>
+        <h1>Welcome to Workout Builder</h1>
+        </header>
+        
+        <div class="banner">
+        <img src="Gym.jpg" alt="Banner Image">
+        </div>
 
 
 
-</body>
+    </body>
 </html>
