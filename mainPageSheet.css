@@ -189,7 +189,7 @@ textarea:focus{
     left: 0;
     background-color: #111;
     overflow-x: hidden;
-    transition: 0.5s;
+    transition-delay: 0.5s;
     padding-top: 60px;
 
 }

@@ -23,7 +23,14 @@
                     <!-- The side bar will have a title-->
                     <h3 style="font-size: 20; color: aliceblue; text-align: center;" >Playlists</h3>
 
-            
+                    <!-- The side bar will have a list of playlists-->
+                    <div id="parentList">
+
+
+
+
+                    </div>
+
             
                 </div>
 
@@ -47,18 +54,18 @@
 
     <div class="formPopup" id="createPlaylist" style="display: none">
         <!-- This form will essntially pop up once the user clicks a big button "Create Playists"-->
-        <form id="playlistForm">
+        <form id="playlistForm" onsubmit="createList('playistTitle', 'Description', 'parentList', 'sideBar')">
             <h1></h1>Playlist</h1>
 
             <!--Playlist Inputs-->
             <label><b>Name of Playlist</b></label>
             <br />
-            <input type="text" placeholder="Playlist Name" name="Playlist"/>
+            <input type="text" placeholder="Playlist Name" name="Playlist" id="playistTitle"/>
             <br />
             <!-- The text area is an Html element that allows the user input any type of text-->
             <label><b>Description</b></label>
             <br />
-            <textarea name="Description" placeholder=" Enter your workout here:" class="descriptionBox"></textarea>
+            <textarea id="Description" placeholder=" Enter your workout here:" class="descriptionBox"></textarea>
             <br />
             <!--Buttons to submit or cancel the form-->
             <button type="submit" class="greenBtn">Create Playlist</button>

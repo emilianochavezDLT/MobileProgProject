@@ -26,6 +26,7 @@ function openVisibilty(id) {
     
         document.getElementById(id).style.display = "block"; //Unhides the contents of the id
 
+        //If side bar is opened, then view the list of workouts
         if(id === "sideBar"){
 
             toggleSideBar(id);
@@ -43,8 +44,45 @@ function toggleSideBar(id) {
 
 }
 
+//Closes the sideBar
 function closeSideBar(id) {
 
     document.getElementById(id).style.width = "0px"; //Unhides the contents of the id
+
+}
+
+
+//creating a list that takes a input text and adds it as a title.
+//then creating a ul and appending the workouts to the list
+function createList(playistTitle, Description, parentList, sideBar) {
+
+    //Getting the input text from the playlistTitle text box
+    let title = document.getElementById(playistTitle).value;
+
+
+    //Parent element which is the div in this case
+    let parent = document.getElementById(parentList);
+    parent.innerHTML = "<h3>" + title +"</h3>"; //Clearing the parent element
+    
+    let tempSideBar = document.getElementById(sideBar);
+    tempSideBar.style.display = "block"; //Unhides the contents of the id
+
+    //getting the textbox input and using a delimter to split the string into the workouts array
+    let textboxInput = document.getElementById(Description).value;
+    let workouts = textboxInput.split(","); //Splitting the string into an array
+
+     //creating the ul element
+     let playlistUl = document.createElement("ul");
+    //Adding the ul element to the parent element
+    parent.appendChild(playlistUl);
+
+    //Adding the li elements to the ul element
+    for (let index = 0; index < workouts.length; index++) {
+        let wI = document.createElement("li");
+        wI.innerHTML = workouts[index];
+        playlistUl.appendChild(wI);
+    }
+
+    tempSideBar.style.display = "none"; //Unhides the contents of the id
 
 }
