@@ -193,3 +193,30 @@ textarea:focus{
     padding-top: 60px;
 
 }
+
+.sideBar .xbutton{
+
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 20;
+    margin-left: 50px;
+
+}
+
+.sideBar a{
+
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #8a8686;
+    display: block;
+    transition: 0.3s;
+
+}
+
+.sideBar a:hover{
+
+    color: #fac25a;
+    transition-duration: 0.5s;
+}

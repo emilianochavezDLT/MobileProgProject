@@ -7,6 +7,12 @@ function closeVisibilty(id) {
     if(document.getElementById(id).style.display === "block"){
 
         document.getElementById(id).style.display = "none"; //Unhides the contents of the id
+
+        if(id === "sideBar"){
+
+            closeSideBar(id);           
+        
+        }
         
     }
     
@@ -20,15 +26,13 @@ function openVisibilty(id) {
     
         document.getElementById(id).style.display = "block"; //Unhides the contents of the id
 
+        if(id === "sideBar"){
+
+            toggleSideBar(id);
+        
+        }
+
     }
-
-    if(document.getElementById(id) === "sideBar"){
-
-        toggleSideBar(id);
-    
-    }
-
-
 
 }
 
@@ -36,5 +40,11 @@ function openVisibilty(id) {
 function toggleSideBar(id) {
 
     document.getElementById(id).style.width = "250px"; //Unhides the contents of the id
+
+}
+
+function closeSideBar(id) {
+
+    document.getElementById(id).style.width = "0px"; //Unhides the contents of the id
 
 }

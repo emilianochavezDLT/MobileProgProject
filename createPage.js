@@ -20,14 +20,13 @@ function openVisibilty(id) {
     
         document.getElementById(id).style.display = "block"; //Unhides the contents of the id
 
-    }
+        if(id === "sideBar"){
 
-    if(document.getElementById(id) === "sideBar"){
-
-        toggleSideBar(id);
+            toggleSideBar(id);
+        
+        }
     
     }
-
 
 
 }
