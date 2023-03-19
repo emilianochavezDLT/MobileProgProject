@@ -3,40 +3,38 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Main Page</title>
+    <title>Create Page</title>
     <link rel="stylesheet" href="mainPageSheet.css">
     <script src="mainPageJS.js"></script>
 </head>
 
-    <body>
+<body>
 
         <ul>
             <li><a class="active" href="mainPage.html">Home</a></li>
-
             <!--Once the user clicks on "My Playlists" the side bar will open-->
             <li><a onclick="openVisibilty('sideBar')">My Playslists</a></li>
-                <div id="sideBar" class="sideBar" style="display: none">
-                    <!--Close button that is an x-->
-                    <a href="javascript:void(0)" class="xbutton" onclick="closeVisibilty('sideBar')">x</a>
-                
-                
-                    <!-- The side bar will have a title-->
-                    <h3 style="font-size: 20; color: aliceblue; text-align: center;" >Playlists</h3>
-
-                    <!-- The side bar will have a list of playlists-->
-                    <div id="parentList">
-
-
-
-
-                    </div>
-
-            
-                </div>
-
             <li><a href="createPage.html">Create</a></li>
             <li><a href="landingPage.html">Explore</a></li>
         </ul>
+
+
+        <div id="sideBar" class="sideBarClass" style="display: none">
+            <!--Close button that is an x-->
+            <a href="javascript:void(0)" class="xbutton" onclick="closeVisibilty('sideBar')">x</a>
+            
+            
+            <!-- The side bar will have a title-->
+            <h3 style="font-size: 20; color: aliceblue; text-align: center;" >Playlists</h3>
+
+            <!-- The side bar will have a list of playlists-->
+            <div id="parentList">
+
+            </div>
+
+        
+        </div>
+        
         
 
     <!-- The beginning of our form-->
@@ -52,29 +50,37 @@
     </div>
 
 
-    <div class="formPopup" id="createPlaylist" style="display: none">
-        <!-- This form will essntially pop up once the user clicks a big button "Create Playists"-->
-        <form id="playlistForm" onsubmit="createList('playistTitle', 'Description', 'parentList', 'sideBar')">
-            <h1></h1>Playlist</h1>
+    <div class="formWrapper">
+        <div class="formPopup" id="createPlaylist" style="display: none">
 
-            <!--Playlist Inputs-->
-            <label><b>Name of Playlist</b></label>
-            <br />
-            <input type="text" placeholder="Playlist Name" name="Playlist" id="playistTitle"/>
-            <br />
-            <!-- The text area is an Html element that allows the user input any type of text-->
-            <label><b>Description</b></label>
-            <br />
-            <textarea id="Description" placeholder=" Enter your workout here:" class="descriptionBox"></textarea>
-            <br />
-            <!--Buttons to submit or cancel the form-->
-            <button type="submit" class="greenBtn">Create Playlist</button>
-            <button type="button" class="cancelBtn" onclick="closeVisibilty('createPlaylist')">Cancel</button>
+            <!--This will be a placeholder for a circular image that will right of the form
+            so that the user will have an option to upload an image-->
+            <div class="imgcontainer">
+                <img src="" alt="Insert Image" class="playlistImage" >
+            
+            </div>
 
-        </form>
+            <!-- This form will essntially pop up once the user clicks a big button "Create Playists"-->
+            <form id="playlistForm" onsubmit="createList('playistTitle', 'Description', 'parentList', 'sideBar')">
+                
+                <!--Playlist Inputs-->
+                <label><b>Name of Playlist</b></label>
+                <br />
+                <input type="text" placeholder="Playlist Name" name="Playlist" id="playistTitle"/>
+                <br />
+                <!-- The text area is an Html element that allows the user input any type of text-->
+                <label><b>Description</b></label>
+                <br />
+                <textarea id="Description" placeholder=" Enter your workout here:" class="descriptionBox"></textarea>
+                <br />
+                <!--Buttons to submit or cancel the form-->
+                <button type="submit" class="greenBtn">Create Playlist</button>
+                <button type="button" class="cancelBtn" onclick="closeVisibilty('createPlaylist')">Cancel</button>
 
+            </form>
+
+        </div>
     </div>
-
 
 
 </body>

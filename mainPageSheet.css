@@ -135,7 +135,7 @@ text-transform: uppercase;
 
 input[type=text]{
 
-    width: 25%;
+    width: 75%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing:border-box;
@@ -156,8 +156,8 @@ input[type=text]:focus{
 
 
 textarea {
-    width: 460px;
-    height: 270px;
+    width: 400px;
+    height: 200px;
     border-radius: 15px;
     border: 3px solid #ccc;
     -webkit-transition: 0.5s;
@@ -172,14 +172,14 @@ textarea:focus{
 
 .formPopup{
 
-    text-align:center;
+    text-align: inherit;
     justify-content: center;
     align-items: center;
 
 
 }
 
-.sideBar{
+.sideBarClass{
 
     height: 100%;;    
     width: 0;
@@ -194,7 +194,7 @@ textarea:focus{
 
 }
 
-.sideBar .xbutton{
+.sideBarClass .xbutton{
 
     position: absolute;
     top: 0;
@@ -204,7 +204,7 @@ textarea:focus{
 
 }
 
-.sideBar a{
+.sideBarClass a{
 
     padding: 8px 8px 8px 32px;
     text-decoration: none;
@@ -215,8 +215,48 @@ textarea:focus{
 
 }
 
-.sideBar a:hover{
+.sideBarClass a:hover{
 
     color: #fac25a;
     transition-duration: 0.5s;
+}
+
+.playlistImage{
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border-color: #ccc;
+    border-width: 5px;
+    border-style: solid;
+    transition-duration: 0.5s;
+    object-fit: cover;
+}
+
+.playlistImage:hover{
+
+    border-color: #555;
+}
+
+.imgcontainer{
+
+    float: right;
+    margin-right: 20px;
+    flex: 0 0 auto;
+    position: relative;
+    text-align: center;
+}
+
+form{
+    overflow: hidden;
+    flex: 1;
+}
+
+.formWrapper{
+
+    display: flex;
+    justify-content: center;
 }

@@ -59,7 +59,6 @@ function createList(playistTitle, Description, parentList, sideBar) {
     //Getting the input text from the playlistTitle text box
     let title = document.getElementById(playistTitle).value;
 
-
     //Parent element which is the div in this case
     let parent = document.getElementById(parentList);
     parent.innerHTML = "<h3>" + title +"</h3>"; //Clearing the parent element
