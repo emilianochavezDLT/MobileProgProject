@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Delete Page</title>
+    <link rel="stylesheet" href="mainPageSheet.css">
+    <script src="mainPageJS.js"></script>
+</head>
+
+<!--This is an html page that will only do a simple task of just
+deleting an exsiting workout using a delete request. It will contain a form with a
+submit button-->
+
+<form>
+
+
+    <label for="workoutId">Workout Id:</label>
+    <input type="text" id="workoutId" name="workoutId" placeholder="Enter the workout id">
+    <br>
+    <button type="submit">Delete Workout</button>
+    <br>
+
+    <script>
+
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const workoutId = Number(form.elements.workoutId.value);
+            //Here we are going to use fetch to delete the data from the server
+            //We will use the fetch api to make a delete request to the server
+            //We will then use the data to populate the side bar
+            console.log(
+
+                //Remember to use the backticks
+                fetch(`/workouts/${workoutId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        workoutId: workoutId
+                    })
+                }).then((res) => {
+                    console.log(res);
+                }).catch((err) => {
+                    console.log(err);
+                }),
+            );
+        })
+
+
+    </script>
+
+
+</form>
+
+
+
+
+
+
+
+
+</html>

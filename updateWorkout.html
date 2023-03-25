@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <title>Update Page</title>
+
+    <link rel="stylesheet" href="mainPageSheet.css">
+
+    <script src="mainPageJS.js"></script>
+
+</head>
+
+<!--This is an html page that will only do a simple task of just
+updating an exsiting workout using a put request. It will contain a form with a 
+submit button-->
+
+<body>
+
+    <!--This will ba form to update a workout by an id from the server-->
+
+    <form>
+
+
+        <label for="workoutId">Workout Id:</label>
+        <input type="text" id="workoutId" name="workoutId" placeholder="Enter the workout id">
+        <br>
+        <label for="playlistTitle">Playlist Title:</label>
+        <input type="text" id="playlistTitle" name="playlistTitle"><br>
+        <br>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"></textarea><br>
+        <button type="submit">Update Workout</button>
+        <br>
+
+
+    </form>
+
+    <script>
+
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const workoutId = Number(form.elements.workoutId.value);
+            //Here we are going to use fetch to update the data from the server
+            //We will use the fetch api to make a put request to the server
+            //We will then use the data to populate the side bar
+            console.log(
+
+            //Remember to use the backticks
+            fetch(`/workouts/${workoutId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    playlistTitle: document.getElementById('playlistTitle').value,
+                    description: document.getElementById('description').value
+                })
+            })
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .catch(err => console.log(err))
+            );
+
+            form.reset();
+        });
+
+        
+
+    </script>
+
+
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
