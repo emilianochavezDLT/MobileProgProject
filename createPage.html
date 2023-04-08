@@ -115,6 +115,14 @@
                 <br />
                 <textarea id="Description" placeholder=" Enter your workout here:" class="descriptionBox"></textarea>
                 <br />
+
+                <div id="exerciseBoxes" >
+                    <input type="text" placeholder="Exercise 1" id="exercise0" class="exercise" />
+                </div>
+                <button type="button" class="greenBtn" onclick="addExercise('exerciseBoxes')">Add Exercise</button>
+
+
+
                 <!--Buttons to submit or cancel the form-->
                 <button type="submit" class="greenBtn">Create Playlist</button>
                 <button type="button" class="cancelBtn" onclick="closeVisibilty('createPlaylist')">Cancel</button>
@@ -127,12 +135,34 @@
                 //It will make a post request to the server   
                 
                 const form = document.getElementById('playlistForm');
-                
+                let exersiceList = [];
                 form.addEventListener('submit', (e) => {
                     e.preventDefault();
+
+                      //We are going to store the exercises in an array
+                    //where each element is a string and so we can add it to the database
+                    let exerciseInput = document.querySelectorAll('.exercise');
+                    let exerciseArray = [];
+
+                    //We are going to loop through the exercise input and add an event listener
+                    //to each input
+                    exerciseInput.forEach(function(input){
+                        //We are going to trim the input so that we can remove any white space
+                        let exerciseName = input.value.trim();
+
+                        //We are going to check if the exercise name is not empty
+                        if(exerciseName !== ''){
+                            //We are going to add the exercise name to the array
+                            exerciseArray.push(exerciseName);
+                        }
+
+                    })
+
+
                     const formData = JSON.stringify({
                         playlistTitle: document.getElementById('playistTitle').value,
-                        description: document.getElementById('Description').value
+                        description: document.getElementById('Description').value,
+                        exerciseList: exerciseArray
                     });
 
                     console.log(formData);

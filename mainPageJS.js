@@ -85,3 +85,56 @@ function createList(playistTitle, Description, parentList, sideBar) {
     tempSideBar.style.display = "none"; //Unhides the contents of the id
 
 }
+
+
+/** Add exercise function will add a new input box to the form
+ * where it will allow the user to add more exercises to the list
+ *
+ * It will have a button that will add a new input box
+ * and a button that will remove the last input box.
+ * 
+ */
+
+let exerciseIncrement = 2;
+//Creating a new input box
+function addExercise(parent) {
+    
+    
+    
+    //Getting the parent element which is the div called exerciseBoxes
+    let exerciseDiv = document.getElementById(parent);
+    let exercise = document.createElement("input");
+    exercise.setAttribute("type", "text");
+    exercise.setAttribute("name", "exercise" + exerciseIncrement);
+    exercise.setAttribute("id", "exercise" + exerciseIncrement);
+    exercise.setAttribute("placeholder", "Exercise " + exerciseIncrement);
+    exercise.setAttribute("class", "exercise");
+
+    //We are going to add a button that will remove the last input box
+    let removeExercise = document.createElement("button");
+    removeExercise.setAttribute("type", "button");
+    removeExercise.setAttribute("id", "removeExercise" + exerciseIncrement);
+    removeExercise.setAttribute("class", "cancelBtn");
+    removeExercise.innerHTML = "X";
+
+    //Here we are going to add an event listener to the button
+    //This will remove the last input box
+    removeExercise.addEventListener("click", function() {
+        exerciseDiv.removeChild(exercise);
+        exerciseDiv.removeChild(removeExercise);
+        //Decrementing so we can keep track of the number of input boxes
+        exerciseIncrement--;
+    });
+
+
+
+
+    //Adding the input box to the parent element    
+    exerciseDiv.appendChild(exercise);
+    exerciseDiv.appendChild(removeExercise);
+
+    //Incrementing the exerciseIncrement
+    exerciseIncrement++;
+
+
+}
