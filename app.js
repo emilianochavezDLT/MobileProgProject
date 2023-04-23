@@ -3,20 +3,12 @@
 
 //Importing the express module
 const express = require('express');
-//Import uuid
-//const uuid = require('uuid'); //We are going to keep it basic for now and just use our id as a number
-//Importing the body-parser module
 const bodyParser = require('body-parser');
-
-
 //Creating an instance of express
 const app = express();
+const crypto = require('crypto');
+const sqlite3 = require('sqlite3')
 
-//Setting up the static folder to serve the front end web pages
-
-//This is going to be the folder that is going to hold the front end web pages, 
-//we can just ignore this for now since. It was just to test out the server.
-//app.use(express.static('public'));
 
 
 //Middleware
@@ -25,57 +17,127 @@ const app = express();
 //meaning that we are going to parse the data as json, and not as url encoded data
 app.use(bodyParser.json());
 
-//Creating a variable to hold the data
-//This is going to be an array of objects
-/*
-    This should be what the user inputs from the forms in the front end
-const workouts = [
-
-    Basic Anotomy of the object
-    {
-        Here we are going to have the id, which is the key
-        and the value is 2
-        id: 2,
-        
-        Here we are going to have the name, which is the key
-        and the value is 'Pull Ups'
-        name: 'Pull Ups',
-    }
-
-    {
-        id: 3,
-        playlistTitle: 'Chest',
-        description: 'Bench Press, Dips, Push Ups',
-    },
-
-*/ 
-
-//Creating an array of objects
-const workouts = []
-
-/* The functions below have two arguments/parameter.
- 
-The request and the response. The request is what the user is sending to the server.
-The request sends the data to the server. Everything that the user sends to the server is
-stored in the request object. 
-
-The response is what the server sends back to the user.
-
-Below we are creating a route for the api. 
-This is called an endpoint. The endpoint is the url that the user is going to use to
-access the api. We are going to use the get method to get the data from the api.
-The get method is going to take two arguments. The first argument is the url that the user
-is going to use to access the api. The second argument is a callback function that takes
-two arguments. The first argument is the request and the second argument is the response.
-
-An api is an application programming interface. It is a set of rules that allow programs to
-communicate with each other. It is a set of functions and procedures that allow the creation
-of applications that access the features or data of an operating system, application, or other
-service.
-
+/**
+ * ****************************************************
+ * We are going to create a database to store authentication information
+ * ****************************************************
 */
 
+//Creating a database
+const usersdb = new sqlite3.Database('usersDatabase.db', (err) => {
 
+	//This is to check if there is an error
+	if (err) {
+		//This is to print the error message
+		console.error(err.message);
+	}
+	//If there is no error then we will print the message
+	console.log('Connected to the usersDatabase database.');
+});		
+
+//Creating a table to store the users
+//This creates the table called users if it does not exist
+usersdb.run('CREATE TABLE IF NOT EXISTS users (username VARCHAR(255) UNIQUE, password VARCHAR(255), id INTEGER PRIMARY KEY AUTOINCREMENT)');
+
+
+
+/**
+ *****************************************************
+ * At this point we are going to create our methods for authorization
+ *****************************************************
+*/
+
+//Generating a method to generate a hash for hashing the password
+const hash = (password) => 
+crypto.createHash('sha256').update(password).digest('hex')
+
+//Next is to prompt authorization
+const promptAuth = (res) => {
+	res.status(401).setHeader('WWW-Authenticate', 'Basic');
+	res.end('Access denied');
+}
+
+//Next is to parse the authorization header
+// helper function to get a username/password tuple from request headers.
+// Returns an empty array if no authorization header is present
+const parseBasic = (req) => {
+	if(req.headers.authorization) {
+	  // split the value of the header "Basic lwjkjvljk"
+	  const [ _, value ] = req.headers.authorization.split(" ")
+	  // decode base64 string into binary values in a buffer
+	  const buff = Buffer.from(value, 'base64')
+	  
+	  // convert the buffer into string and split user:pass
+	  return buff.toString().split(":").slice(0,2);
+	}
+	return []
+}
+
+
+//We are going to create he method to check if the user is authorized
+//This is going to be used to check if the user is authorized
+const isAuthorized = async(req, res, next) => {
+    //Creating a variable to hold the username and password
+    //We are going to use the parseBasic method to parse the username and password
+    const [username, password] = parseBasic(req);
+
+    //Checking if the username and password are not empty
+    if (username && password) {
+        //Creating a variable to hold the sql query
+
+        //Creating a variable to hold the user
+        //This function is going to be used to get the user from the database
+        //We essentially making a find user function here.
+        //The purpose of the function to find the user in the database
+        const userFound = await new Promise((resolve, reject) => {
+
+            const findUser = db.prepare('SELECT * FROM users WHERE username = ?');
+            findUser.get(username, (err, row) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(row);
+                }
+            }).finalize();
+
+        })
+
+        //Checking if the user is found
+        if (userFound) {
+            
+            //Hashing the password, because we store the hashed password in the database
+            const userPassword = hash(password);
+            //Checking if the password is correct
+            if (userPassword === userFound.password) {
+                //If the user password is correct then we are going to call the next function
+                next();
+            }else {
+                //If the password is not correct then we are going to prompt authorization
+                promptAuth(res);
+            }
+        }else {
+            //If the user is not found then we are going to prompt authorization
+            promptAuth(res);
+        }
+    }
+
+    //if the username and password are empty then we are going to prompt authorization
+    else {
+        //If the username and password are empty then we are going to prompt authorization
+        promptAuth(res);
+    }
+
+}//End of isAuthorized method
+
+
+
+
+
+/*
+ **************************************************** 
+ * This is the starting point of the http Restful api
+ * **************************************************
+*/
 
 //Creating a route for the api
 app.get('/workouts', (req, res) => {

@@ -263,4 +263,25 @@ form{
     justify-content: center;
 }
 
+.removeExercise{
+    border: none;
+    color: black;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-family: 'Copperplate Gothic';
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition-duration: 0.5s;
+    background-color: #C0C0C0;
+
+}
+
+.removeExercise:hover{
+    background-color: red;
+}
+
 

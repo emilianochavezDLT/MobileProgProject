@@ -114,7 +114,7 @@ function addExercise(parent) {
     let removeExercise = document.createElement("button");
     removeExercise.setAttribute("type", "button");
     removeExercise.setAttribute("id", "removeExercise" + exerciseIncrement);
-    removeExercise.setAttribute("class", "cancelBtn");
+    removeExercise.setAttribute("class", "removeExercise");
     removeExercise.innerHTML = "X";
 
     //Here we are going to add an event listener to the button
