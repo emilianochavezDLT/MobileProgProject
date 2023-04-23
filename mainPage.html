@@ -1,38 +1,90 @@
 ﻿<!DOCTYPE html>
 
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8" />
     <title>Main Page</title>
-    <link rel="stylesheet" href="mainPageSheet.css">
+    <link rel="stylesheet" href="mainPageSheet.css" />
     <script src="mainPageJS.js"></script>
-</head>
+  </head>
 
-    <body>
+  <body>
+    <!-- The navigation bar -->
+    <ul>
+      <li><a class="active" href="mainPage.html">Home</a></li>
+      <!--Once the user clicks on "My Playlists" the side bar will open-->
+      <li><a onclick="openVisibilty('sideBar')">My Playslists</a></li>
+      <li><a href="createPage.html">Create</a></li>
+      <li><a href="landingPage.html">Explore</a></li>
+      <li><a href="signIn.html">Sign In</a></li>
+    </ul>
 
-        <ul>
-            <li><a class="active" href="mainPage.html">Home</a></li>
+    <!-- The side bar will be hidden until the user clicks on "My Playlists"-->
+    <div id="sideBar" class="sideBarClass" style="display: none">
+      <!--Close button that is an x-->
+      <a
+        href="javascript:void(0)"
+        class="xbutton"
+        onclick="closeVisibilty('sideBar')"
+        >x</a
+      >
 
-            <!--Once the user clicks on "My Playlists" the side bar will open-->
-            <li><a onclick="openVisibilty('sideBar')">My Playslists</a></li>
-                <div id="sideBar" class="sideBar" style="display: none">
-                <!-- The side bar will have a title-->
-                    <h3>Playlists</h3>
-                </div>
+      <!-- The side bar will have a title-->
+      <h3 style="font-size: 20; color: aliceblue; text-align: center">
+        Playlists
+      </h3>
 
-            <li><a href="createPage.html">Create</a></li>
-            <li><a href="landingPage.html">Explore</a></li>
-        </ul>
+      <!-- The side bar will have a list of playlists-->
+      <div id="parentList"></div>
+    </div>
+    <script>
+      //Here we are going to use fetch to get the data from the server
+      //We will use the fetch api to make a get request to the server
+      //We will then use the data to populate the side bar
+      fetch("/workouts")
+        .then((res) => res.json())
 
-        <header class="header">
-        <h1>Welcome to Workout Builder</h1>
-        </header>
-        
-        <div class="banner">
-        <img src="Gym.jpg" alt="Banner Image">
-        </div>
+        //The data will be an array of objects
+        //Each object will have a title and description
 
+        .then((data) => {
+          //We are going to loop through the array of objects
+          //We will create a list element for each object
+          //We will then append the list element to the parent list
+          data.forEach((workout) => {
+            //Then we are going to function called displayPlaylist
+            //This function will take in a playlist object
+            //It will then create a list element and append it to the parent list
+            console.log(workout);
+            displayPlaylist(workout);
+          });
+        })
+        .catch((err) => console.log(err));
 
+      //This function will take in a playlist object
+      //It will then create a list element and append it to the parent list
+      function displayPlaylist(playlist) {
+        //Create a list element
+        const listElement = document.createElement("li");
+        //Create a link element
+        const linkElement = document.createElement("a");
+        //Set the href attribute of the link element
+        linkElement.setAttribute("href", "/workouts/" + playlist._id);
+        //Set the inner text of the link element
+        linkElement.innerText = playlist.playlistTitle;
+        //Append the link element to the list element
+        listElement.appendChild(linkElement);
+        //Append the list element to the parent list
+        document.getElementById("parentList").appendChild(listElement);
+      }
+    </script>
 
-    </body>
+    <header class="header">
+      <h1>Welcome to Workout Builder</h1>
+    </header>
+
+    <div class="banner">
+      <img src="Gym.jpg" alt="Banner Image" />
+    </div>
+  </body>
 </html>
