@@ -140,7 +140,7 @@ const isAuthorized = async(req, res, next) => {
 */
 
 //Creating a route for the api
-app.get('/workouts', (req, res) => {
+app.get('/api', (req, res) => {
     res.json(workouts);
 });
 
@@ -151,7 +151,7 @@ if the id that the user is looking for is in the array. If the id is in the arra
 are going to return the workout. If the id is not in the array then we are going to return
 a 400 status code and a message that says that the workout was not found.
 */ 
-app.get('/workouts/:id', (req, res) => {
+app.get('/api/:id', (req, res) => {
     const found = workouts.some(workout => workout.id === parseInt(req.params.id));
     if (found) {
         res.json(workouts.filter(workout => workout.id === parseInt(req.params.id)));
@@ -169,7 +169,7 @@ We are going to use the push method to add the new workout to the array. We are 
 use the json method to send the new workout back to the user.
 
 */
-app.post('/workouts', (req, res) => {
+app.post('/api', (req, res) => {
     const newWorkout = req.body;
     console.log(req.body)
     console.log('Received: ',newWorkout);
@@ -190,7 +190,7 @@ app.post('/workouts', (req, res) => {
  * description of the workout and just add to the description 
  */
 
-app.post('/workouts/:id', (req, res) => {
+app.post('/api/:id', (req, res) => {
     //Checking if the workout exists by using the some method
     const found = workouts.some(workout => workout.id === parseInt(req.params.id));
     //If the workout is found then we are going to update the workout
@@ -219,7 +219,7 @@ app.post('/workouts/:id', (req, res) => {
 //We are going to use the map method to loop through the array and check if the id matches
 //the id that the user is looking for. If the id matches then we are going to update the
 //workout. If the id does not match then we are going to return the workout.
-app.put('/workouts/:id', (req, res) => {
+app.put('/api/:id', (req, res) => {
 
     //Checking if the workout exists by using the some method
     /**
@@ -274,7 +274,7 @@ app.put('/workouts/:id', (req, res) => {
 //the id that the user is looking for. If the id matches then we are going to delete the
 //workout. If the id does not match then we are going to return the workout.
 
-app.delete('/workouts/:id', (req, res) => {
+app.delete('/api/:id', (req, res) => {
 
     //Checking if the workout exists by using the some method
     /**

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Workout Builder App</title>
+    <link rel="stylesheet" href="landingPageSheet.css" />
+    
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script>
+        $(function() {
+            $("#sidebar").load("playlistSidebar.html");
+        });
+    </script>
+  </head>
+  <body>
+   <div id="sidebar"></div>
+    
+    <div class="header">
+      <h1>View Our Playlists</h1>
+    </div>
+
+    <!-- These are the two boxes that the user can click on
+            to go to the next page -->
+    <div class="container">
+      <a href="viewWorkouts.html/ourchestday" class="card">
+        <img src="chestDay.jpg" />
+        <div class="card-text">Our Chest Day</div>
+      </a>
+      <a href="viewWorkouts.html/ourlegday" class="card">
+        <img src="legDay.jpg" />
+        <div class="card-text">Our Leg Day</div>
+      </a>
+    </div>
+    <div class="container">
+      <a href="viewWorkouts.html/ourarmsday" class="card">
+        <img src="armDay.jpg"/>
+        <div class="card-text">Our Arms Day</div>
+      </a>
+      <a href="viewWorkouts.html/ourbackday" class="card">
+        <img src="backDay.jpg" />
+        <div class="card-text">Our Back Day</div>
+      </a>
+    </div>
+  </body>
+</html>
