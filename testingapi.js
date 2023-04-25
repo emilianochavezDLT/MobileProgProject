@@ -5,7 +5,7 @@ const app = express();
 //Middleware
 const crypto = require('crypto');
 const sqlite3 = require('sqlite3');
-const { parse } = require('path');
+
 
 //{
 //  "playlistTitle": "Biceps",
@@ -293,9 +293,28 @@ app.get('/api/:playlistTitle', isAuthorized, async(req, res) => {
 
   //We are going to get the user's playlist from the database
   //This is going to return a promise which is the playlist we need
-  const userPlaylist = await userDatabase.all(`SELECT * FROM ${req.params.playlistTitle}`);
-
-  console.log(userPlaylist);
+  userDatabase.all(`SELECT * FROM ${req.params.playlistTitle}`,
+  (err, rows) => {
+    if (err) {
+      console.error(err.message);
+      } 
+      else {
+        // Parse the exerciseList JSON string into an object
+        //We are going to go thorugh each row and parse the exerciseList column
+        rows.forEach((row) => {
+          try{
+            //We are going to parse the exerciseList column
+            row.exerciseList = JSON.parse(row.exerciseList);
+            }
+            catch(e){
+              console.log(err);
+              }
+        })
+        
+        // Send the JSON object to the client
+        res.json(rows);
+      }
+  });
     
 });
 
@@ -407,29 +426,11 @@ app.post('/api', isAuthorized, async(req, res) => {
     
     
 
-/**
- * Making a post request for an already existing workout
- * If the workout already exists then we just want to update the workout
- * We are not going to change the name of the workout, but we are going to change the
- * description of the workout and just add to the description 
- */
-
-app.post('/api/:id', (req, res) => {
-    
-
-
-
-
-
-});
-
-
-
 //Creating a put request. This is going to be used to update a workout in the array.
 //We are going to use the map method to loop through the array and check if the id matches
 //the id that the user is looking for. If the id matches then we are going to update the
 //workout. If the id does not match then we are going to return the workout.
-app.put('/api/:id', (req, res) => {
+app.put('/api', (req, res) => {
 
    
 
@@ -441,7 +442,7 @@ app.put('/api/:id', (req, res) => {
 //the id that the user is looking for. If the id matches then we are going to delete the
 //workout. If the id does not match then we are going to return the workout.
 
-app.delete('/api/:id', (req, res) => {
+app.delete('/api', (req, res) => {
 
   
 });
