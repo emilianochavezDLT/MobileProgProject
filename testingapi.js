@@ -7,6 +7,14 @@ const crypto = require('crypto');
 const sqlite3 = require('sqlite3');
 const { parse } = require('path');
 
+//{
+//  "playlistTitle": "Biceps",
+//  "description": "Some Description....",
+//  "exerciseList": ["Curls","Dumb Bells"]
+//}
+
+
+
 
 //Setting up the static folder to serve the front end web pages
 app.use(express.static('public'));
@@ -211,26 +219,84 @@ const findUserByUsername = (username) => {
 
 
 //Creating a route for the api
-app.get('/api', (req, res) => {
-   // res.json(workouts);
-    //res.status(200);
+app.get('/api', async(req, res) => {
+   
+  //This is send all of the infromation from the database to the client
+  //We are going to get the user from the request parameters
+  const [user] = parseBasic(req);
+  console.log(user);
+ 
+  //We are going to get the user's information from the database
+  //This is going to return a promise which is the database we need
+  const userDatabase = await openDB(user);
+
+  //We are going to get the user's playlist from the database
+  //This is going to return a promise which is the playlist we need
+  userDatabase.all("SELECT name FROM sqlite_master WHERE type='table'", (err, tables) => {
+    if (err) {
+      console.error(err.message);
+    } else {
+      // Create a JSON object to store the table names
+      const tableNames = {};
+  
+      // Iterate through the table names and add them to the JSON object
+      tables.forEach((table) => {
+        userDatabase.all(`SELECT * FROM ${table.name}`, (err, rows) => {
+          if (err) {
+            console.error(err.message);
+          } else {
+            // Parse the exerciseList JSON string into an object
+            //We are going to go thorugh each row and parse the exerciseList column
+            rows.forEach((row) => {
+              try{
+                //We are going to parse the exerciseList column
+                row.exerciseList = JSON.parse(row.exerciseList);
+              }
+              catch(e){
+                console.log(err);
+              }
+            
+            })
+            // Add the table name and rows to the JSON object
+            tableNames[table.name] = rows;
+            // Check if the JSON object has all the table names
+            if (Object.keys(tableNames).length === tables.length) {
+              // Send the JSON object to the client
+              res.json(tableNames);
+            }
+          }
+        }
+        );
+      });
+    }
+  });
+
+
 });
 
 
 
 /*
-This is a get request for a single workout. We are going to use the some method to check
-if the id that the user is looking for is in the array. If the id is in the array then we
-are going to return the workout. If the id is not in the array then we are going to return
-a 400 status code and a message that says that the workout was not found.
+This is to get the user's database information
+All of this information is going to be public when the user is logged in
+This is going to be used to display the user's information
 */ 
-app.get('/api/:playlistTitle', (req, res) => {
-    const found = workouts.some(workout => workout.id === parseInt(req.params.id));
-    if (found) {
-        res.json(workouts.filter(workout => workout.id === parseInt(req.params.id)));
-    } else {
-        res.status(400).json({ msg: `No workout with the id of ${req.params.id}` });
-    }
+app.get('/api/:playlistTitle', isAuthorized, async(req, res) => {
+
+  //We are going to get the user from the request parameters
+  const [user] = parseBasic(req);
+  console.log(user);
+
+  //We are going to get the user's information from the database
+  //This is going to return a promise which is the database we need
+  const userDatabase = await openDB(user);
+
+  //We are going to get the user's playlist from the database
+  //This is going to return a promise which is the playlist we need
+  const userPlaylist = await userDatabase.all(`SELECT * FROM ${req.params.playlistTitle}`);
+
+  console.log(userPlaylist);
+    
 });
 
 
@@ -300,6 +366,9 @@ The request body will look like this
 
 */
 app.post('/api', isAuthorized, async(req, res) => {
+
+  
+
   const newWorkout = req.body;
   console.log(req.body)
   const [user] = parseBasic(req)
@@ -309,33 +378,30 @@ app.post('/api', isAuthorized, async(req, res) => {
   // console.log('Tag: ', tag);
   console.log('User: ', user);
 
+  const exerciseList = JSON.stringify(newWorkout.exerciseList);
+
   //Next we are going to get request authorzation header
   //We need to make a database our of the user's user name
   //We are going to use the user's username as the name of the database
 
   //Creating a database for the user
-  const userdb = openDB(user);
+  const userdb = await openDB(user);
+  console.log('Userdb: ', userdb);
   //Creating a table for the user
-  userdb.prepare(`CREATE TABLE IF NOT EXISTS ${newWorkout.playlistTitle} (id INTEGER PRIMARY KEY AUTOINCREMENT, playlistTitle VARCHAR(255), description VARCHAR(255), exerciseList VARCHAR(255)`)
+  userdb.run(`CREATE TABLE IF NOT EXISTS ${newWorkout.playlistTitle} (id INTEGER PRIMARY KEY AUTOINCREMENT, description VARCHAR(255), exerciseList VARCHAR(255))`);
   //Creating a workout
-  const titleDesEx = userdb.prepare(`INSERT INTO ${newWorkout.playlistTitle} (playlistTitle, description) VALUES (?, ?)`);
-  titleDesEx.run(newWorkout.playlistTitle, newWorkout.description, (err) => {
+  const titleDesEx = userdb.prepare(`INSERT INTO ${newWorkout.playlistTitle} (description, exerciseList) VALUES (?, ?, ?)`);
+  titleDesEx.run(newWorkout.description, exerciseList,(err) => {
     if (err) {
       console.log(err);
       res.status(500).json({ msg: 'Internal server error' });
-    } else {
+    }
+    else{
+      console.log('Workout created');
       res.status(200).json({ msg: 'Workout created' });
     }
   }
-  ).finalize();
-
-  //Inserting the exercises into the database
-  const exercises = userdb.prepare(`INSERT INTO ${newWorkout.playlistTitle} (exerciseList) VALUES (?)`);
-
-
-
-  
-
+  ).finalize();  
     
 });
     
