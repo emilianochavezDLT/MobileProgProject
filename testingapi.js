@@ -185,28 +185,27 @@ const findUserByUsername = (username) => {
 
 
 //This is a fucntion to standarized the request body for the tag
-//const standardizeTag = (tag) => {
-//   
-//  return new Promise((resolve, reject) => {
-//    
-//    //Creating a variable to hold the standardized tag
-//    let standardizedTag = tag;
-//    //The tag will be standardized by making it lowercase
-//    standardizedTag = standardizedTag.toLowerCase();
-//    //The tag will be standardized by removing the spaces
-//    standardizedTag = standardizedTag.replace(/\s/g, '');
-//
-//    //The tag will be standardized by removing the special characters
-//    standardizedTag = standardizedTag.replace(/[^\w\s]/gi, '');
-//
-//    //The tag will be standardized by removing the numbers
-//    standardizedTag = standardizedTag.replace(/[0-9]/g, '');
-//
-//    resolve(standardizedTag);
-//  })
-//  
-//}
+const standardizeName = (tag) => {
+   
+  return new Promise((resolve, reject) => {
+    
+    //Creating a variable to hold the standardized tag
+    let standardName = tag;
+    //The tag will be standardized by making it lowercase
+    standardName= standardName.toLowerCase();
+    //The tag will be standardized by removing the spaces
+    standardName = standardName.replace(/\s/g, '');
 
+    //The tag will be standardized by removing the special characters
+    standardName = standardName.replace(/[^\w\s]/gi, '');
+
+    //The tag will be standardized by removing the numbers
+    standardName = standardName.replace(/[0-9]/g, '');
+
+    resolve(standardName);
+  })
+  
+}
 
 
 
@@ -406,21 +405,42 @@ app.post('/api', isAuthorized, async(req, res) => {
   //Creating a database for the user
   const userdb = await openDB(user);
   console.log('Userdb: ', userdb);
+
+
   //Creating a table for the user
-  userdb.run(`CREATE TABLE IF NOT EXISTS ${newWorkout.playlistTitle} (id INTEGER PRIMARY KEY AUTOINCREMENT, description VARCHAR(255), exerciseList VARCHAR(255))`);
-  //Creating a workout
-  const titleDesEx = userdb.prepare(`INSERT INTO ${newWorkout.playlistTitle} (description, exerciseList) VALUES (?, ?, ?)`);
-  titleDesEx.run(newWorkout.description, exerciseList,(err) => {
+  const checkTable = userdb.prepare(`SELECT name FROM sqlite_master WHERE type='table' AND name='${newWorkout.playlistTitle}'`);
+  checkTable.get((err, row) => {
     if (err) {
       console.log(err);
       res.status(500).json({ msg: 'Internal server error' });
+    } else if (row) {
+      console.log('Table already exists');
+    } else {
+      userdb.run(`CREATE TABLE ${newWorkout.playlistTitle} (id INTEGER PRIMARY KEY AUTOINCREMENT, description VARCHAR(255), exerciseList VARCHAR(255))`, (err) => {
+        if (err) {
+          console.log(err);
+          res.status(500).json({ msg: 'Internal server error' });
+        } else {
+          console.log('Table created');
+           //Creating a workout
+          const titleDesEx = userdb.prepare(`INSERT INTO ${newWorkout.playlistTitle} (description, exerciseList) VALUES (?, ?)`);
+          titleDesEx.run(newWorkout.description, exerciseList,(err) => {
+            if (err) {
+              console.log(err);
+              res.status(500).json({ msg: 'Internal server error' });
+            }
+            else{
+              console.log('Workout created');
+              res.status(200).json({ msg: 'Workout created' });
+            }
+          }
+          ).finalize();
+        }
+      });
     }
-    else{
-      console.log('Workout created');
-      res.status(200).json({ msg: 'Workout created' });
-    }
-  }
-  ).finalize();  
+  });
+
+  
     
 });
     
